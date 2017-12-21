@@ -14,7 +14,7 @@ class clean_df(object):
     def df(self):
         return self.__df
     def _clean(self):
-        return self.__df.dropna(how = 'any', inplace=True)
+        return self.__df.dropna(inplace=True)
     
     def __str__(self):
         return "column headers: %s"%(self.__df.columns.tolist())  
@@ -34,14 +34,16 @@ class stats_data (clean_df):
     
     The class representation will produce:
     - the average 
-    - the total 
+    - the total  
     
     '''
     
     #import the dataframe as a self in the instructor
     def __init__(self, cl, *args ):
-        self.__cl = cl
+        self.__cl = ""
         super(stats_data, self).__init__(*args)
+        self.cl = cl
+        
         
         
     
@@ -50,24 +52,28 @@ class stats_data (clean_df):
         return self.__cl
     @cl.setter
     def cl(self, c):
-        if c in self.df.columns:
-            self.__cl = c
+        try:
+            if c in self.df.columns:
+                self.__cl = c
+        except KeyError:
+            print("invalid column name") # this step will help with the __repr__ to print invalid column name 
         
     def avg (self):
         return self.df[self.cl].mean()
-        #return avg_feed
+        
    
     def total (self):
         return self.df[self.cl].sum()
     
     
-   # def __str__(self):
-   #     return "avg: %4.4f; sum: %4.4f"%(self.avg_feed(), self.sum_feed())
+    def __str__(self):
+        return [('avg', self.avg()),('sum',self.total())] 
                 
     def __repr__(self):
-        return "The average value of %s: %4.2f and the total is: %4.2f"%(self.cl, self.avg(), self.total())
-    
-    
-        
-    
+        if self.cl:
+            return "The average value of %s: %4.2f and the total is: %4.2f"%(self.cl, self.avg(), self.total())
+        else:
+            return "Column name inputted is invalid, check spelling or name again"
      
+        
+        
