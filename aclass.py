@@ -21,8 +21,7 @@ class CleanDf(object):
     def __str__(self):
         return "column headers: %s"%(self.__df.columns.tolist())
     def __repr__(self):
-        return "The dataframe after cleaning has a of shape of (rows, columns):\
-        %s and %s"%(self.__df.shape, self.__str__())
+        return "The dataframe after cleaning has a of shape of (rows, columns)%s and %s"%(self.__df.shape, self.__str__())
 
 class stats_data(CleanDf):
 
@@ -56,7 +55,7 @@ class stats_data(CleanDf):
             if c in self.df.columns:
                 self.__cl = c
         except KeyError:
-            print("invalid column name") \
+            print("invalid column name")
             # this step will help with the __repr__ to print invalid column name
 
     def avg(self):
@@ -72,7 +71,6 @@ class stats_data(CleanDf):
 
     def __repr__(self):
         if self.cl:
-            return "The average value of %s: %4.2f and \
-            the total is: %4.2f"%(self.cl, self.avg(), self.total())
+            return "The average value of %s: %4.2f and the total is: %4.2f"%(self.cl, self.avg(), self.total())
         else:
             return "Column name inputted is invalid, check spelling or name again"
