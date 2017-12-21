@@ -59,10 +59,12 @@ class stats_data(CleanDf):
             # this step will help with the __repr__ to print invalid column name
 
     def avg(self):
+        ''' this function calculates the average for the column'''
         return self.df[self.cl].mean()
 
 
     def total(self):
+        ''' this function calculates the total for the column'''
         return self.df[self.cl].sum()
 
 
